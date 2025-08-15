@@ -14,7 +14,7 @@ var (
 	enumratorStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("99")).MarginRight(1)
 )
 
-func (m model) View() string { 
+func (m model) View() string {
 	s := appNameStyle.Render("NOTES APP") + "\n\n"
 
 	if m.state == titleView {
@@ -42,7 +42,7 @@ func (m model) View() string {
 			}
 			s += enumratorStyle.Render(prefix) + n.Title + " | " + faintStyle.Render(shortBody) + "\n\n"
 		}
-		s += faintStyle.Render("n - new note, q - quit")
+		s += faintStyle.Render("n - new note, q - quit, del/backspace - delete")
 	}
 
 	return s

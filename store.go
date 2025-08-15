@@ -55,7 +55,6 @@ func (s *Store) GetNotes() ([]Note, error) {
 	return notes, nil
 }
 
-
 func (s *Store) SaveNote(note Note) error {
 	if note.ID == 0 {
 		note.ID = time.Now().UTC().Unix()
@@ -68,6 +67,16 @@ func (s *Store) SaveNote(note Note) error {
 	`
 
 	if _, err := s.conn.Exec(upsertQuery, note.ID, note.Title, note.Body); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *Store) DeleteNote(note Note) error {
+	deleteQuery := `DELETE FROM notes WHERE id = ?`
+
+	if _, err := s.conn.Exec(deleteQuery, note.ID); err != nil {
 		return err
 	}
 
